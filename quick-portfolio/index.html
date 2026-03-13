@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Elfarsisi</title>
+    <meta name="description"
+        content="Innovative Software Engineer and NASA Global Nominee (Top 1% Worldwide). Full Stack Developer specializing in Vue.js, Node.js, and Laravel.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        space: {
+                            900: '#0c1a1d',
+                            800: '#23383b',
+                            700: '#346a75',
+                            600: '#4a8fa0',
+                            100: '#b6c6c6',
+                        },
+                        cosmic: {
+                            bronze: '#776353',
+                            gold: '#d4af37',
+                            cyan: '#00d4ff',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 0.4, transform: 'scale(1)' },
+                            '50%': { opacity: 0.8, transform: 'scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="antialiased selection:bg-cosmic-cyan selection:text-space-900">
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="font-display text-3xl md:text-5xl font-bold text-cosmic-cyan mb-4 tracking-tighter">
+            <span id="loader-text">INITIALIZING</span><span class="animate-pulse">...</span>
+        </div>
+        <div class="font-mono text-sm text-space-100/60">MOHAMED ELFARSISI PORTFOLIO</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor cursor-dot" id="cursor-dot"></div>
+    <div class="cursor cursor-circle" id="cursor-circle"></div>
+
+    <!-- Noise Overlay -->
+    <div class="noise"></div>
+
+    <!-- WebGL Background -->
+    <canvas id="cosmic-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 transition-all duration-300" id="navbar">
+        <div
+            class="max-w-7xl mx-auto flex justify-between items-center backdrop-blur-md bg-space-900/50 rounded-full px-6 py-3 border border-space-100/10">
+            <a href="#" class="font-display text-xl md:text-2xl font-bold tracking-tighter hover-target group">
+                <span class="text-cosmic-cyan group-hover:animate-pulse">mohamed elfarsisi</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about"
+                    class="nav-link text-sm font-medium tracking-wide hover-target text-space-100/80 hover:text-cosmic-cyan transition-colors">ABOUT</a>
+                <a href="#experience"
+                    class="nav-link text-sm font-medium tracking-wide hover-target text-space-100/80 hover:text-cosmic-cyan transition-colors">EXPERIENCE</a>
+                <a href="#skills"
+                    class="nav-link text-sm font-medium tracking-wide hover-target text-space-100/80 hover:text-cosmic-cyan transition-colors">SKILLS</a>
+                <a href="#honors"
+                    class="nav-link text-sm font-medium tracking-wide hover-target text-space-100/80 hover:text-cosmic-cyan transition-colors">HONORS</a>
+                <a href="#projects"
+                    class="nav-link text-sm font-medium tracking-wide hover-target text-space-100/80 hover:text-cosmic-cyan transition-colors">PROJECTS</a>
+                <a href="#contact" class="magnetic-btn primary text-sm py-2 px-6 hover-target">CONTACT</a>
+            </div>
+
+            <button class="md:hidden hover-target text-space-100" id="menu-toggle" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6" class="transition-transform origin-center" id="menu-line-1">
+                    </line>
+                    <line x1="3" y1="12" x2="21" y2="12" class="transition-opacity" id="menu-line-2"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" class="transition-transform origin-center" id="menu-line-3">
+                    </line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed inset-0 bg-space-900 z-40 flex flex-col justify-center items-center" id="mobile-menu">
+        <a href="#about"
+            class="font-display text-4xl font-bold mb-6 text-space-100 hover:text-cosmic-cyan transition-colors mobile-link">ABOUT</a>
+        <a href="#experience"
+            class="font-display text-4xl font-bold mb-6 text-space-100 hover:text-cosmic-cyan transition-colors mobile-link">EXPERIENCE</a>
+        <a href="#skills"
+            class="font-display text-4xl font-bold mb-6 text-space-100 hover:text-cosmic-cyan transition-colors mobile-link">SKILLS</a>
+        <a href="#honors"
+            class="font-display text-4xl font-bold mb-6 text-space-100 hover:text-cosmic-cyan transition-colors mobile-link">HONORS</a>
+        <a href="#projects"
+            class="font-display text-4xl font-bold mb-6 text-space-100 hover:text-cosmic-cyan transition-colors mobile-link">projects</a>
+        <a href="#contact" class="font-display text-4xl font-bold text-cosmic-cyan mobile-link">CONTACT</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden pt-20">
+        <div class="particles" id="hero-particles"></div>
+
+        <div class="max-w-7xl mx-auto w-full relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 nasa-badge px-4 py-2 rounded-full mb-4 reveal-up">
+                        <svg class="w-5 h-5 text-cosmic-gold" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span class="text-sm font-mono text-cosmic-gold">NASA Global Nominee (Top 1%)</span>
+                    </div>
+
+                    <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight">
+                        <div class="overflow-hidden">
+                            <span class="block reveal-up text-space-100" id="hero-line1">MOHAMED</span>
+                        </div>
+                        <div class="overflow-hidden">
+                            <span class="block reveal-up glitch-text text-cosmic-cyan" data-text="ELFARSISI"
+                                id="hero-line2">ELFARSISI</span>
+                        </div>
+                    </h1>
+
+                    <div class="overflow-hidden">
+                        <p class="text-xl md:text-2xl text-space-100/80 font-light reveal-up" id="hero-subtitle">
+                            Full Stack Developer
+                        </p>
+                    </div>
+
+                    <p class="text-space-100/60 text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed reveal-up"
+                        id="hero-desc">
+                        Innovative Software Engineer specializing in distributed systems. Currently architecting modern
+                        web interfaces at Codveda Technologies.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start reveal-up"
+                        id="hero-cta">
+                        <a href="#experience" class="magnetic-btn primary hover-target group">
+                            <span>View Experience</span>
+                            <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                        <a href="#contact" class="magnetic-btn hover-target">
+                            <span>Get in Touch</span>
+                        </a>
+                    </div>
+
+                    <div class="flex gap-6 justify-center lg:justify-start pt-4 reveal-up">
+                        <a href="https://www.linkedin.com/in/mohamed-elfarsisi/" target="_blank"
+                            class="hover-target text-space-100/60 hover:text-cosmic-cyan transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="https://github.com/mohamed-elfrsisi" target="_blank"
+                            class="hover-target text-space-100/60 hover:text-cosmic-cyan transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="mailto:mohamedelfarsisi@outlook.com"
+                            class="hover-target text-space-100/60 hover:text-cosmic-cyan transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative hidden lg:block">
+                    <div class="relative w-full aspect-square max-w-[500px] mx-auto" id="hero-visual">
+                        <!-- Outer glow -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-cosmic-cyan/20 to-space-700/20 rounded-full blur-3xl animate-pulse-glow">
+                        </div>
+
+                        <!-- Spinning rings -->
+                        <div class="absolute inset-4 border border-cosmic-cyan/30 rounded-full animate-spin-slow"></div>
+                        <div
+                            class="absolute inset-8 border border-dashed border-space-100/20 rounded-full animate-[spin_30s_linear_infinite_reverse]">
+                        </div>
+
+                        <!-- Inner decorative ring -->
+                        <div class="absolute inset-12 border border-cosmic-cyan/10 rounded-full animate-pulse"></div>
+
+                        <!-- Image container -->
+                        <div class="relative hidden lg:block">
+                            <div class="relative w-full max-w-[500px] mx-auto" id="hero-visual">
+                                <!-- Outer glow -->
+                                <div
+                                    class="absolute -inset-4 bg-gradient-to-br from-cosmic-cyan/20 to-space-700/20 rounded-[2rem] blur-3xl animate-pulse-glow">
+                                </div>
+
+                                <!-- Spinning rings -->
+                                <div
+                                    class="absolute -inset-2 border border-cosmic-cyan/30 rounded-[2rem] animate-spin-slow">
+                                </div>
+
+                                <!-- Image container - NO aspect-square, natural height -->
+                                <div
+                                    class="relative rounded-2xl overflow-hidden cosmic-card border-2 border-cosmic-cyan/30 shadow-[0_0_60px_rgba(0,212,255,0.3)] group">
+                                    <img src="assets/profile img-1.jpeg" alt="Mohamed Elfarsisi"
+                                        class="w-full h-auto max-h-[600px] object-contain object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                        loading="eager">
+                                    <!-- Overlay gradient -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-space-900/40 via-transparent to-transparent pointer-events-none">
+                                    </div>
+                                </div>
+
+                                <!-- Floating badges -->
+                                <div
+                                    class="absolute -top-2 -right-2 cosmic-card px-4 py-2 rounded-full animate-float backdrop-blur-md">
+                                    <span class="text-xs font-mono text-cosmic-cyan">NASA Top 1%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Overlay gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-space-900/60 via-transparent to-transparent">
+                        </div>
+
+                        <!-- Shine effect on hover -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                        </div>
+                    </div>
+
+                    <div class="absolute top-1/2 -right-4 cosmic-card px-3 py-2 rounded-lg animate-float backdrop-blur-md"
+                        style="animation-delay: 0.5s;">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-cosmic-cyan/20 border border-cosmic-cyan/50 flex items-center justify-center text-[10px]">
+                                </div>
+                                <div
+                                    class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/50 flex items-center justify-center text-[10px]">
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono text-space-100">1+ Years</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile version (visible only on small screens) -->
+            <div class="lg:hidden relative w-64 h-64 mx-auto mb-8">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-cosmic-cyan/20 to-space-700/20 rounded-full blur-2xl animate-pulse-glow">
+                </div>
+                <div class="absolute inset-2 border border-cosmic-cyan/30 rounded-full"></div>
+
+                <div
+                    class="absolute inset-4 rounded-full overflow-hidden cosmic-card border-2 border-cosmic-cyan/30 shadow-[0_0_40px_rgba(0,212,255,0.2)]">
+                    <img src="assets/linkedin profile img.jpeg" alt="Mohamed Elfarsisi"
+                        class="w-full h-full object-cover object-center" loading="eager">
+                    <div class="absolute inset-0 bg-gradient-to-t from-space-900/40 via-transparent to-transparent">
+                    </div>
+                </div>
+
+                <!-- Mobile badge -->
+                <div
+                    class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 cosmic-card px-4 py-1.5 rounded-full whitespace-nowrap">
+                    <span class="text-xs font-mono text-cosmic-cyan">NASA Top 1%</span>
+                </div>
+            </div>
+            <div
+                class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+                <span class="text-xs tracking-widest text-space-100/60">SCROLL</span>
+                <div class="w-px h-12 bg-gradient-to-b from-cosmic-cyan to-transparent"></div>
+            </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 border-y border-space-100/10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cosmic-cyan/5 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="font-display text-4xl md:text-5xl font-bold text-cosmic-cyan mb-2 group-hover:scale-110 transition-transform"
+                        data-count="1">0</div>
+                    <div class="text-xs md:text-sm text-space-100/60 tracking-widest uppercase">Years Experience</div>
+                </div>
+                <div class="text-center group">
+                    <div class="font-display text-4xl md:text-5xl font-bold text-cosmic-cyan mb-2 group-hover:scale-110 transition-transform"
+                        data-count="5">0</div>
+                    <div class="text-xs md:text-sm text-space-100/60 tracking-widest uppercase">Global Programs</div>
+                </div>
+                <div class="text-center group">
+                    <div class="font-display text-4xl md:text-5xl font-bold text-cosmic-cyan mb-2 group-hover:scale-110 transition-transform"
+                        data-count="3">0</div>
+                    <div class="text-xs md:text-sm text-space-100/60 tracking-widest uppercase">Volunteer</div>
+                </div>
+                <div class="text-center group">
+                    <div class="font-display text-4xl md:text-5xl font-bold text-cosmic-cyan mb-2 group-hover:scale-110 transition-transform"
+                        data-count="10">0</div>
+                    <div class="text-xs md:text-sm text-space-100/60 tracking-widest uppercase">Projects Completed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Performance Optimized -->
+    <section id="about" class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 xl:px-12 relative overflow-hidden">
+        <!-- Single optimized background element (CSS-based, no JS) -->
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-cosmic-cyan/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto relative">
+            <!-- Clean header -->
+            <div class="mb-12 md:mb-16">
+                <span
+                    class="inline-block text-cosmic-cyan font-mono text-xs tracking-[0.2em] uppercase mb-3 border border-cosmic-cyan/20 px-3 py-1 rounded-full">About
+                    Me</span>
+                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-space-100">
+                    Building the <span class="text-cosmic-cyan">Future</span>
+                </h2>
+            </div>
+
+            <!-- Asymmetric grid layout -->
+            <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+
+                <!-- Image Column (4 cols) - Optimized -->
+                <div class="lg:col-span-4 relative">
+                    <div class="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none group">
+                        <!-- Static glow (no animation) -->
+                        <div class="absolute -inset-1 bg-cosmic-cyan/20 rounded-2xl blur-lg opacity-50"></div>
+
+                        <!-- Image container -->
+                        <div
+                            class="relative h-full rounded-2xl overflow-hidden border border-cosmic-cyan/20 bg-space-800">
+                            <!-- Your photo here -->
+                            <img src="assets/linkedin profile img.jpeg" alt="Mohamed Elfarsisi"
+                                class="w-full h-full object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
+                                loading="lazy" decoding="async" width="400" height="533">
+
+                            <!-- Subtle overlay -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-space-900/80 via-transparent to-transparent">
+                            </div>
+
+                            <!-- Content overlay -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                    <span
+                                        class="text-xs font-mono text-green-400 uppercase tracking-wider">Available</span>
+                                </div>
+                                <p class="text-space-100 font-display font-bold text-lg">Mohamed Elfarsisi</p>
+                                <p class="text-space-100/60 text-sm">Full Stack Developer</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating stat card -->
+                        <div
+                            class="absolute -bottom-4 -right-4 cosmic-card px-4 py-3 rounded-xl border border-cosmic-cyan/20 hidden sm:block">
+                            <p class="text-2xl font-bold text-cosmic-cyan font-display">1+</p>
+                            <p class="text-[10px] text-space-100/50 uppercase tracking-wider">Years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Column (8 cols) -->
+                <div class="lg:col-span-8 space-y-6">
+                    <!-- Lead text -->
+                    <p class="text-xl md:text-2xl text-space-100/90 font-light leading-relaxed">
+                        NASA Global Nominee & Software Engineer crafting
+                        <span class="text-cosmic-cyan font-medium">scalable digital solutions</span> with modern web
+                        technologies.
+                    </p>
+
+                    <!-- Bio -->
+                    <div class="space-y-4 text-space-100/70 leading-relaxed">
+                        <p>
+                            Currently driving innovation at <strong class="text-space-100">Codveda
+                                Technologies</strong>,
+                            specializing in Vue.js, Node.js, and Laravel ecosystems. Graduate of NTI's intensive
+                            Full-Stack
+                            program.
+                        </p>
+                        <p>
+                            Selected for <span class="text-cosmic-gold">NASA Space Apps Top 1%</span> globally,
+                            <span class="text-purple-400">Harvard Aspire Leaders</span>, and
+                            <span class="text-blue-400">McKinsey Forward</span>—bringing world-class perspective to
+                            every
+                            project.
+                        </p>
+                    </div>
+
+                    <!-- Compact stats row -->
+                    <div class="flex flex-wrap gap-6 py-4 border-y border-space-100/10">
+                        <div>
+                            <p class="text-2xl font-bold text-cosmic-cyan font-display">10+</p>
+                            <p class="text-xs text-space-100/50 uppercase tracking-wider">Projects</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-cosmic-cyan font-display">5</p>
+                            <p class="text-xs text-space-100/50 uppercase tracking-wider">Global Programs</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-cosmic-cyan font-display">8+</p>
+                            <p class="text-xs text-space-100/50 uppercase tracking-wider">Certifications</p>
+                        </div>
+                    </div>
+
+                    <!-- Skills - Static, no hover effects -->
+                    <div>
+                        <p class="text-xs text-space-100/40 uppercase tracking-wider mb-3">Core Technologies</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-cosmic-cyan/10 text-cosmic-cyan text-sm border border-cosmic-cyan/20">Vue.js</span>
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-cosmic-cyan/10 text-cosmic-cyan text-sm border border-cosmic-cyan/20">Node.js</span>
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-cosmic-cyan/10 text-cosmic-cyan text-sm border border-cosmic-cyan/20">Laravel</span>
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-cosmic-cyan/10 text-cosmic-cyan text-sm border border-cosmic-cyan/20">React</span>
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-cosmic-cyan/10 text-cosmic-cyan text-sm border border-cosmic-cyan/20">TypeScript</span>
+                            <span
+                                class="px-3 py-1.5 rounded-md bg-space-800 text-space-100/70 text-sm border border-space-100/10">+8
+                                more</span>
+                        </div>
+                    </div>
+
+                    <!-- Location tags -->
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 text-sm text-space-100/60">
+                            <svg class="w-4 h-4 text-cosmic-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            </svg>
+                            Tanta, Egypt
+                        </span>
+                        <span class="inline-flex items-center gap-2 text-sm text-space-100/60">
+                            <svg class="w-4 h-4 text-cosmic-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+                            </svg>
+                            Remote Worldwide
+                        </span>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#contact"
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-cosmic-cyan text-space-900 font-medium rounded-lg hover:bg-cosmic-cyan/90 transition-colors">
+                            Start a Project
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                        <a href="#experience"
+                            class="inline-flex items-center gap-2 px-6 py-3 border border-space-100/20 text-space-100 rounded-lg hover:border-cosmic-cyan hover:text-cosmic-cyan transition-colors">
+                            View Experience
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-cosmic-cyan/5 to-transparent pointer-events-none">
+        </div>
+
+        <div class="max-w-6xl mx-auto relative">
+            <!-- Header -->
+            <div class="text-center mb-16 md:mb-20">
+                <span
+                    class="inline-block text-cosmic-cyan font-mono text-xs tracking-[0.2em] uppercase mb-3 border border-cosmic-cyan/20 px-3 py-1 rounded-full">Career
+                    Path</span>
+                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-space-100">
+                    Professional Experience
+                </h2>
+            </div>
+
+            <!-- 3D Timeline -->
+            <div class="relative" style="perspective: 1000px;">
+                <div
+                    class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cosmic-cyan/30 to-transparent transform -translate-x-1/2">
+                </div>
+
+                <div class="space-y-8 md:space-y-0">
+
+                    <!-- Codveda - Web Development Intern -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-cosmic-cyan rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(0,212,255,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
+                            <span
+                                class="inline-block px-3 py-1 bg-cosmic-cyan/10 text-cosmic-cyan rounded-full text-xs font-mono mb-2 border border-cosmic-cyan/30">March
+                                2026 - Present</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Web Development
+                                Intern</h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">Codveda Technologies</p>
+                            <p class="text-xs text-space-100/40 font-mono">Remote • India</p>
+                        </div>
+
+                        <div class="md:pl-12">
+                            <div class="experience-card-3d relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <!-- Front -->
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-cosmic-cyan/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-cosmic-cyan/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/experience/codveda-logo.png" alt="Codveda"
+                                                class="absolute inset-0 w-full h-full object-contain p-4 opacity-80">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Architecting modern, responsive web interfaces using Vue.js and
+                                                JavaScript
+                                                ecosystem...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-cosmic-cyan/10 text-cosmic-cyan rounded text-xs border border-cosmic-cyan/20">Vue.js</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-cosmic-cyan/10 text-cosmic-cyan rounded text-xs border border-cosmic-cyan/20">Git/GitHub</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Back -->
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-cosmic-cyan/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-cosmic-cyan font-bold mb-3 text-sm uppercase tracking-wider">Key
+                                            Achievements</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Developed interactive components with cross-browser compatibility</li>
+                                            <li>Implemented CI/CD workflows for automated deployment</li>
+                                            <li>Collaborated in international remote environment</li>
+                                            <li>Applied UI/UX best practices for user-centric design</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- URI - Research Intern -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-emerald-400 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(52,211,153,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:pr-12 md:order-1 order-2 mt-4 md:mt-0">
+                            <div class="experience-card-3d-left relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-emerald-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-emerald-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/uri presentation.png" alt="URI Research"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                            <div class="absolute bottom-2 left-4 text-xs font-mono text-emerald-400">
+                                                Research</div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Academic research focusing on software optimization and emerging
+                                                technologies...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-xs border border-emerald-500/20">Research</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-xs border border-emerald-500/20">Optimization</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-emerald-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-emerald-400 font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Research Focus</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Developed analytical frameworks for system performance</li>
+                                            <li>Evaluated scalability in distributed environments</li>
+                                            <li>Analyzed emerging technology trends</li>
+                                            <li>Published findings on optimization techniques</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:pl-12 md:text-left md:order-2 order-1">
+                            <span
+                                class="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-mono mb-2 border border-emerald-500/30">Jan
+                                2026 - Mar 2026</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Research Intern
+                            </h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">Undergraduate Researchers Initiative
+                                (URI)
+                            </p>
+                            <p class="text-xs text-space-100/40 font-mono">Tanta University • Egypt</p>
+                        </div>
+                    </div>
+
+                    <!-- NTI - Software Engineer Trainee -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-purple-400 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
+                            <span
+                                class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-mono mb-2 border border-purple-500/30">Jan
+                                2026 - Mar 2026</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Software Engineer
+                                Trainee</h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">National Telecommunication Institute
+                                (NTI)
+                            </p>
+                            <p class="text-xs text-space-100/40 font-mono">Egypt</p>
+                        </div>
+
+                        <div class="md:pl-12">
+                            <div class="experience-card-3d relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-purple-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-purple-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/nti graduate.jpeg" alt="NTI"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Intensive Full-Stack training using Laravel framework with
+                                                production-grade
+                                                backend architectures...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded text-xs border border-purple-500/20">Laravel</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded text-xs border border-purple-500/20">REST
+                                                    APIs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-purple-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-purple-400 font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Training
+                                            Outcomes</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Mastered Blade templating and frontend integration</li>
+                                            <li>Engineered secure database designs</li>
+                                            <li>Built end-to-end user experiences</li>
+                                            <li>Developed debugging and architectural skills</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Microsoft - Software Engineering Intern -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-cosmic-gold rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:pr-12 md:order-1 order-2 mt-4 md:mt-0">
+                            <div class="experience-card-3d-left relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-cosmic-gold/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-cosmic-gold/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/experience/microsoft-azure.png" alt="Microsoft"
+                                                class="absolute inset-0 w-full h-full object-contain p-4 opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Certified in System Analysis using AI and Generative AI Tools with Azure
+                                                cloud infrastructure...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-cosmic-gold/10 text-cosmic-gold rounded text-xs border border-cosmic-gold/20">Azure</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-cosmic-gold/10 text-cosmic-gold rounded text-xs border border-cosmic-gold/20">AI/ML</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-cosmic-gold/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-cosmic-gold font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Certification</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>System Analysis using AI and Generative AI Tools</li>
+                                            <li>Enterprise digital transformation workflows</li>
+                                            <li>AI-assisted SDLC optimization</li>
+                                            <li>Microsoft Azure cloud infrastructure</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:pl-12 md:text-left md:order-2 order-1">
+                            <span
+                                class="inline-block px-3 py-1 bg-cosmic-gold/10 text-cosmic-gold rounded-full text-xs font-mono mb-2 border border-cosmic-gold/30">Jun
+                                2025 - Aug 2025</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Software
+                                Engineering
+                                Intern</h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">Microsoft & Ministry of Youth and
+                                Sports
+                            </p>
+                            <p class="text-xs text-space-100/40 font-mono">Egypt</p>
+                        </div>
+                    </div>
+
+                    <!-- NASA - Global Nominee -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-red-500 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(239,68,68,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
+                            <span
+                                class="inline-block px-3 py-1 bg-red-500/10 text-red-400 rounded-full text-xs font-mono mb-2 border border-red-500/30">Oct
+                                2025</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Global Nominee
+                                (Top
+                                1%)</h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">NASA International Space Apps
+                                Challenge
+                            </p>
+                            <p class="text-xs text-space-100/40 font-mono">Global Competition</p>
+                        </div>
+
+                        <div class="md:pl-12">
+                            <div class="experience-card-3d relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-red-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-red-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/nasa global nominee.jpg" alt="NASA"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                            <div
+                                                class="absolute top-2 right-2 nasa-badge px-2 py-0.5 rounded text-[10px] font-mono text-cosmic-gold">
+                                                Top 1%</div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                NASA Space Habitat - Smart Sustainable Living Module with predictive
+                                                analytics engine...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-red-500/10 text-red-400 rounded text-xs border border-red-500/20">AI
+                                                    Monitoring</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-red-500/10 text-red-400 rounded text-xs border border-red-500/20">Digital
+                                                    Twin</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-red-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-red-400 font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Achievement
+                                        </h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Ranked top 1% of 28,000+ global participants</li>
+                                            <li>Engineered life support for Moon/Mars habitats</li>
+                                            <li>Integrated AI-based resource optimization</li>
+                                            <li>Digital Twin modeling for sustainability</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sprints - Student Ambassador -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-pink-400 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(244,114,182,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:pr-12 md:order-1 order-2 mt-4 md:mt-0">
+                            <div class="experience-card-3d-left relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-pink-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-pink-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/official sprints ambassadors.jpg" alt="Sprints"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-30">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Promoting global software engineering standards and platform
+                                                representation...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-pink-500/10 text-pink-400 rounded text-xs border border-pink-500/20">Leadership</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-pink-500/10 text-pink-400 rounded text-xs border border-pink-500/20">Community</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-pink-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-pink-400 font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Ambassador
+                                            Duties</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Representing platform globally</li>
+                                            <li>Promoting engineering standards</li>
+                                            <li>Organizing technical workshops</li>
+                                            <li>Mentoring aspiring developers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:pl-12 md:text-left md:order-2 order-1">
+                            <span
+                                class="inline-block px-3 py-1 bg-pink-500/10 text-pink-400 rounded-full text-xs font-mono mb-2 border border-pink-500/30">Nov
+                                2025 - Present</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Student
+                                Ambassador
+                            </h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">Sprints Platform</p>
+                            <p class="text-xs text-space-100/40 font-mono">Global</p>
+                        </div>
+                    </div>
+
+                    <!-- FA Model - Marketing Specialist -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-orange-400 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(251,146,60,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
+                            <span
+                                class="inline-block px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-xs font-mono mb-2 border border-orange-500/30">2025</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Marketing
+                                Specialist
+                            </h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">FA Model (FAO)</p>
+                            <p class="text-xs text-space-100/40 font-mono">Egypt</p>
+                        </div>
+
+                        <div class="md:pl-12">
+                            <div class="experience-card-3d relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-orange-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-orange-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/fa model design.jpeg" alt="FA Model"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Designing visual assets and strategic planning for community
+                                                engagement...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-orange-500/10 text-orange-400 rounded text-xs border border-orange-500/20">Marketing</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-orange-500/10 text-orange-400 rounded text-xs border border-orange-500/20">Design</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-orange-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-orange-400 font-bold mb-3 text-sm uppercase tracking-wider">
+                                            Responsibilities</h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Created visual assets for campaigns</li>
+                                            <li>Strategic community engagement planning</li>
+                                            <li>Brand identity development</li>
+                                            <li>Social media content strategy</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UCCD - Media Team Volunteer -->
+                    <div class="relative md:grid md:grid-cols-2 md:gap-12 md:items-center md:min-h-[320px] group">
+                        <div
+                            class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                            <div
+                                class="w-4 h-4 bg-teal-400 rounded-full border-4 border-space-900 shadow-[0_0_20px_rgba(45,212,191,0.5)]">
+                            </div>
+                        </div>
+
+                        <div class="md:pr-12 md:order-1 order-2 mt-4 md:mt-0">
+                            <div class="experience-card-3d-left relative h-[240px] cursor-pointer"
+                                onclick="this.classList.toggle('flipped')">
+                                <div class="card-inner relative w-full h-full transition-transform duration-700"
+                                    style="transform-style: preserve-3d;">
+                                    <div
+                                        class="card-front absolute inset-0 cosmic-card rounded-xl overflow-hidden border border-teal-500/20 backface-hidden flex flex-col">
+                                        <div
+                                            class="h-24 bg-gradient-to-br from-teal-500/20 to-space-800 relative overflow-hidden">
+                                            <img src="assets/camera uccd.jpg" alt="UCCD"
+                                                class="absolute inset-0 w-full h-full object-cover opacity-60">
+                                            <div class="absolute inset-0 bg-space-900/40"></div>
+                                        </div>
+                                        <div class="flex-1 p-4 flex flex-col justify-between">
+                                            <p class="text-space-100/70 text-sm line-clamp-3">
+                                                Media Team Volunteer capturing photography and leading visual content
+                                                creation...
+                                            </p>
+                                            <div class="flex gap-2 flex-wrap">
+                                                <span
+                                                    class="px-2 py-0.5 bg-teal-500/10 text-teal-400 rounded text-xs border border-teal-500/20">Photography</span>
+                                                <span
+                                                    class="px-2 py-0.5 bg-teal-500/10 text-teal-400 rounded text-xs border border-teal-500/20">Video</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back absolute inset-0 cosmic-card rounded-xl p-5 border border-teal-500/40 backface-hidden flex flex-col justify-center"
+                                        style="transform: rotateY(180deg);">
+                                        <h4 class="text-teal-400 font-bold mb-3 text-sm uppercase tracking-wider">Media
+                                            Work
+                                        </h4>
+                                        <ul class="text-space-100/80 text-sm space-y-2 list-disc list-inside">
+                                            <li>Event photography for educational sessions</li>
+                                            <li>Graphic design for promotional materials</li>
+                                            <li>Video production and editing</li>
+                                            <li>Visual content strategy leadership</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:pl-12 md:text-left md:order-2 order-1">
+                            <span
+                                class="inline-block px-3 py-1 bg-teal-500/10 text-teal-400 rounded-full text-xs font-mono mb-2 border border-teal-500/30">2024
+                                - 2025</span>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-space-100 mb-1">Media Team
+                                Volunteer
+                            </h3>
+                            <p class="text-space-100/60 font-medium text-sm mb-1">UCCD Tanta University (Medical Campus)
+                            </p>
+                            <p class="text-xs text-space-100/40 font-mono">Egypt</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Skills Section - Sribble Studio Inspired -->
+    <section id="skills" class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Animated mesh gradient background -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-cosmic-cyan/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"
+                style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-3xl animate-pulse"
+                style="animation-delay: 1s;"></div>
+        </div>
+
+        <!-- SVG Connection Lines (decorative) -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0" />
+                    <stop offset="50%" style="stop-color:#00d4ff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0" />
+                </linearGradient>
+            </defs>
+            <path d="M0,100 Q400,50 800,150 T1600,100" fill="none" stroke="url(#lineGrad)" stroke-width="1"
+                class="animate-[dash_10s_linear_infinite]" />
+            <path d="M0,300 Q400,250 800,350 T1600,300" fill="none" stroke="url(#lineGrad)" stroke-width="1"
+                class="animate-[dash_15s_linear_infinite]" />
+        </svg>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 md:mb-20">
+                <span
+                    class="inline-block text-cosmic-cyan font-mono text-xs tracking-[0.2em] uppercase mb-3 border border-cosmic-cyan/20 px-3 py-1 rounded-full">Capabilities</span>
+                <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-space-100 mb-4">
+                    Technical <span class="text-cosmic-cyan">Ecosystem</span>
+                </h2>
+                <p class="text-space-100/60 max-w-2xl mx-auto text-sm md:text-base">
+                    A dynamic constellation of tools, languages, and frameworks that power modern digital experiences
+                </p>
+            </div>
+
+            <!-- Skills Constellation Layout -->
+            <div class="relative min-h-[800px] md:min-h-[600px]">
+
+                <!-- Center Hub -->
+                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
+                    <div class="relative w-32 h-32">
+                        <div class="absolute inset-0 bg-cosmic-cyan/20 rounded-full blur-xl animate-pulse"></div>
+                        <div
+                            class="relative w-full h-full rounded-full cosmic-card border-2 border-cosmic-cyan/50 flex items-center justify-center group cursor-pointer hover:scale-110 transition-transform duration-500">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cosmic-cyan font-display">Full</div>
+                                <div class="text-xs text-space-100/60 uppercase tracking-wider">Stack</div>
+                            </div>
+                        </div>
+                        <!-- Orbiting dots -->
+                        <div class="absolute inset-0 animate-[spin_10s_linear_infinite]">
+                            <div class="absolute -top-1 left-1/2 w-2 h-2 bg-cosmic-cyan rounded-full"></div>
+                        </div>
+                        <div class="absolute inset-0 animate-[spin_15s_linear_infinite_reverse]">
+                            <div class="absolute top-1/2 -right-1 w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Clusters -->
+
+                <!-- Frontend Cluster (Top) -->
+                <div
+                    class="md:absolute md:top-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full md:w-auto mb-8 md:mb-0">
+                    <div class="text-center mb-4">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cosmic-cyan/10 border border-cosmic-cyan/30 text-cosmic-cyan text-xs font-mono uppercase tracking-wider">
+                            <span class="w-2 h-2 bg-cosmic-cyan rounded-full animate-pulse"></span>
+                            Frontend
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4">
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-cosmic-cyan/20 flex items-center justify-center group-hover:border-cosmic-cyan/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-cosmic-cyan" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-cosmic-cyan font-mono">JavaScript</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative mt-4 md:mt-8">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-cosmic-cyan/20 flex items-center justify-center group-hover:border-cosmic-cyan/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-cosmic-cyan" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-cosmic-cyan font-mono">Vue.js</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-cosmic-cyan/20 flex items-center justify-center group-hover:border-cosmic-cyan/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-cosmic-cyan" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-cosmic-cyan font-mono">React</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative mt-4 md:mt-8">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-cosmic-cyan/20 flex items-center justify-center group-hover:border-cosmic-cyan/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-cosmic-cyan" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-cosmic-cyan font-mono">Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Cluster (Right) -->
+                <div
+                    class="md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full md:w-auto mb-8 md:mb-0">
+                    <div class="text-center md:text-right mb-4">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-mono uppercase tracking-wider">
+                            <span class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
+                            Backend
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap justify-center md:justify-end gap-3 md:gap-4">
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-purple-500/20 flex items-center justify-center group-hover:border-purple-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-purple-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-purple-400 font-mono">Node.js</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative mt-4 md:mt-0 md:mr-8">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-purple-500/20 flex items-center justify-center group-hover:border-purple-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-purple-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-purple-400 font-mono">Laravel</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-purple-500/20 flex items-center justify-center group-hover:border-purple-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-purple-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-purple-400 font-mono">REST APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Cluster (Bottom) -->
+                <div
+                    class="md:absolute md:bottom-0 md:left-1/2 md:transform md:-translate-x-1/2 w-full md:w-auto mb-8 md:mb-0">
+                    <div class="text-center mb-4">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono uppercase tracking-wider">
+                            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                            Data
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4">
+                        <div class="skill-node group relative mt-4 md:mt-0">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-emerald-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-emerald-400 font-mono">MySQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-emerald-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-emerald-400 font-mono">MongoDB</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative mt-4 md:mt-0">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-emerald-500/20 flex items-center justify-center group-hover:border-emerald-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-emerald-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-emerald-400 font-mono">Redis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud & Tools Cluster (Left) -->
+                <div class="md:absolute md:left-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full md:w-auto">
+                    <div class="text-center md:text-left mb-4">
+                        <span
+                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono uppercase tracking-wider">
+                            <span class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+                            Cloud & Tools
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-amber-500/20 flex items-center justify-center group-hover:border-amber-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-amber-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path
+                                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-amber-400 font-mono">Azure</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative mt-4 md:mt-0 md:ml-8">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-amber-500/20 flex items-center justify-center group-hover:border-amber-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-amber-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-amber-400 font-mono">Docker</span>
+                            </div>
+                        </div>
+                        <div class="skill-node group relative">
+                            <div
+                                class="w-16 h-16 md:w-20 md:h-20 rounded-2xl cosmic-card border border-amber-500/20 flex items-center justify-center group-hover:border-amber-500/60 group-hover:scale-110 transition-all duration-300 cursor-pointer">
+                                <svg class="w-8 h-8 text-amber-400" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <div
+                                class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                <span class="text-xs text-amber-400 font-mono">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Proficiency Bars (Bottom) -->
+            <div class="mt-16 md:mt-24 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="cosmic-card rounded-xl p-4 border border-cosmic-cyan/10">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-space-100">Frontend</span>
+                        <span class="text-xs text-cosmic-cyan font-mono">95%</span>
+                    </div>
+                    <div class="h-1.5 bg-space-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-cosmic-cyan to-cosmic-cyan/50 w-[95%]"></div>
+                    </div>
+                </div>
+                <div class="cosmic-card rounded-xl p-4 border border-purple-500/10">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-space-100">Backend</span>
+                        <span class="text-xs text-purple-400 font-mono">90%</span>
+                    </div>
+                    <div class="h-1.5 bg-space-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-500 to-purple-500/50 w-[90%]"></div>
+                    </div>
+                </div>
+                <div class="cosmic-card rounded-xl p-4 border border-emerald-500/10">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-space-100">Database</span>
+                        <span class="text-xs text-emerald-400 font-mono">85%</span>
+                    </div>
+                    <div class="h-1.5 bg-space-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-emerald-500 to-emerald-500/50 w-[85%]"></div>
+                    </div>
+                </div>
+                <div class="cosmic-card rounded-xl p-4 border border-amber-500/10">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-space-100">Cloud/DevOps</span>
+                        <span class="text-xs text-amber-400 font-mono">80%</span>
+                    </div>
+                    <div class="h-1.5 bg-space-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-amber-500 to-amber-500/50 w-[80%]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Honors Section -->
+    <section id="honors" class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Dynamic background -->
+        <div class="absolute inset-0">
+            <div
+                class="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cosmic-gold/20 to-transparent">
+            </div>
+            <div
+                class="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent">
+            </div>
+            <div
+                class="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cosmic-cyan/20 to-transparent">
+            </div>
+
+            <!-- Floating orbs -->
+            <div class="absolute top-20 right-20 w-64 h-64 bg-cosmic-gold/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+                style="animation-delay: 1.5s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header with animated text -->
+            <div class="text-center mb-16 md:mb-24">
+                <span
+                    class="inline-block text-cosmic-gold font-mono text-xs tracking-[0.3em] uppercase mb-4 border border-cosmic-gold/20 px-4 py-1.5 rounded-full">
+                    Recognition
+                </span>
+                <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-space-100 mb-4">
+                    Honors & <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-cosmic-gold via-amber-400 to-cosmic-gold">Achievements</span>
+                </h2>
+                <p class="text-space-100/50 max-w-xl mx-auto text-sm md:text-base">
+                    Milestones that mark the journey of continuous growth and global impact
+                </p>
+            </div>
+
+            <!-- 3D Card Stack Layout -->
+            <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+
+                <!-- Featured: NASA (Large Card) -->
+                <div class="lg:col-span-7 group">
+                    <div class="honor-card-3d relative h-[400px] md:h-[500px] cursor-pointer"
+                        onclick="this.classList.toggle('flipped')">
+                        <div class="card-inner relative w-full h-full transition-all duration-700"
+                            style="transform-style: preserve-3d;">
+
+                            <!-- Front -->
+                            <div class="card-front absolute inset-0 rounded-3xl overflow-hidden backface-hidden">
+                                <!-- Background Image with overlay -->
+                                <div class="absolute inset-0">
+                                    <img src="assets/nasa certificate.jpg" alt="NASA Space Apps"
+                                        class="w-full h-full object-cover opacity-60">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/80 to-transparent">
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-br from-cosmic-gold/20 to-transparent">
+                                    </div>
+                                </div>
+
+                                <!-- Content -->
+                                <div class="relative h-full flex flex-col justify-end p-6 md:p-10">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-cosmic-gold/20 backdrop-blur-md border border-cosmic-gold/30 flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-cosmic-gold" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="text-cosmic-gold font-mono text-xs tracking-wider uppercase">
+                                                October
+                                                2025</div>
+                                            <div class="text-space-100/60 text-xs">Global Competition</div>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="font-display text-2xl md:text-4xl font-bold text-space-100 mb-2">NASA
+                                        Space
+                                        Apps Challenge</h3>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <span
+                                            class="px-3 py-1 bg-cosmic-gold/20 text-cosmic-gold rounded-full text-xs font-bold border border-cosmic-gold/30">Top
+                                            1%</span>
+                                        <span class="text-space-100/40 text-xs">28,000+ Participants</span>
+                                    </div>
+
+                                    <p class="text-space-100/70 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
+                                        Engineered predictive analytics for NASA Space Habitat — Smart Sustainable
+                                        Living
+                                        Module.
+                                        AI-based monitoring and Digital Twin modeling for extreme environments.
+                                    </p>
+
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="px-3 py-1.5 bg-space-900/50 backdrop-blur-sm text-cosmic-gold rounded-lg text-xs border border-cosmic-gold/20">AI
+                                            Monitoring</span>
+                                        <span
+                                            class="px-3 py-1.5 bg-space-900/50 backdrop-blur-sm text-cosmic-gold rounded-lg text-xs border border-cosmic-gold/20">Digital
+                                            Twin</span>
+                                        <span
+                                            class="px-3 py-1.5 bg-space-900/50 backdrop-blur-sm text-cosmic-gold rounded-lg text-xs border border-cosmic-gold/20">Sustainability</span>
+                                    </div>
+
+                                    <div class="mt-6 flex items-center gap-2 text-cosmic-gold/60 text-xs">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
+                                        Click to flip for details
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Back -->
+                            <div class="card-back absolute inset-0 rounded-3xl overflow-hidden cosmic-card border-2 border-cosmic-gold/30 backface-hidden p-6 md:p-10 flex flex-col justify-center"
+                                style="transform: rotateY(180deg);">
+                                <div class="text-center">
+                                    <div
+                                        class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-cosmic-gold/10 flex items-center justify-center border border-cosmic-gold/30">
+                                        <svg class="w-10 h-10 text-cosmic-gold" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-display text-2xl font-bold text-cosmic-gold mb-4">Achievement
+                                        Unlocked
+                                    </h4>
+                                    <ul class="text-space-100/70 text-sm space-y-3 text-left max-w-md mx-auto">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-cosmic-gold mt-1">▸</span>
+                                            <span>Ranked among top 1% of 28,000+ global participants</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-cosmic-gold mt-1">▸</span>
+                                            <span>Developed predictive analytics for life support systems</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-cosmic-gold mt-1">▸</span>
+                                            <span>Integrated Digital Twin modeling for resource optimization</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-cosmic-gold mt-1">▸</span>
+                                            <span>Designed for extreme environments: Moon & Mars habitats</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Stack: Other Honors -->
+                <div class="lg:col-span-5 space-y-4">
+
+                    <!-- Aspire Leaders -->
+                    <div
+                        class="honor-mini-card group relative cosmic-card rounded-2xl p-5 border border-purple-500/10 hover:border-purple-500/30 transition-all duration-300 overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-purple-500/20 transition-all">
+                        </div>
+
+                        <div class="relative flex items-start gap-4">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-purple-400 font-mono text-xs">2026</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded text-[10px] border border-purple-500/20">Harvard</span>
+                                </div>
+                                <h4
+                                    class="font-display text-lg font-bold text-space-100 mb-1 group-hover:text-purple-400 transition-colors">
+                                    Aspire Leaders Program</h4>
+                                <p class="text-space-100/50 text-xs line-clamp-2">Global leadership journey in
+                                    organizational leadership and cross-cultural communication.</p>
+                                <div class="mt-3 flex gap-2">
+                                    <span
+                                        class="px-2 py-0.5 bg-purple-500/5 text-purple-400/70 rounded text-[10px]">Leadership</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-purple-500/5 text-purple-400/70 rounded text-[10px]">Global
+                                        Network</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- McKinsey Forward -->
+                    <div
+                        class="honor-mini-card group relative cosmic-card rounded-2xl p-5 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300 overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-blue-500/20 transition-all">
+                        </div>
+
+                        <div class="relative flex items-start gap-4">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-blue-400 font-mono text-xs">2025</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded text-[10px] border border-blue-500/20">McKinsey</span>
+                                </div>
+                                <h4
+                                    class="font-display text-lg font-bold text-space-100 mb-1 group-hover:text-blue-400 transition-colors">
+                                    McKinsey Forward Program</h4>
+                                <p class="text-space-100/50 text-xs line-clamp-2">Advanced problem-solving and adaptable
+                                    leadership in business consulting context.</p>
+                                <div class="mt-3 flex gap-2">
+                                    <span
+                                        class="px-2 py-0.5 bg-blue-500/5 text-blue-400/70 rounded text-[10px]">Strategy</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-blue-500/5 text-blue-400/70 rounded text-[10px]">Communication</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Research URI -->
+                    <div
+                        class="honor-mini-card group relative cosmic-card rounded-2xl p-5 border border-cosmic-cyan/10 hover:border-cosmic-cyan/30 transition-all duration-300 overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-cosmic-cyan/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-cosmic-cyan/20 transition-all">
+                        </div>
+
+                        <div class="relative flex items-start gap-4">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-cosmic-cyan/10 flex items-center justify-center border border-cosmic-cyan/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7 text-cosmic-cyan" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-cosmic-cyan font-mono text-xs">2026</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-cosmic-cyan/10 text-cosmic-cyan rounded text-[10px] border border-cosmic-cyan/20">Research</span>
+                                </div>
+                                <h4
+                                    class="font-display text-lg font-bold text-space-100 mb-1 group-hover:text-cosmic-cyan transition-colors">
+                                    Undergraduate Researcher</h4>
+                                <p class="text-space-100/50 text-xs line-clamp-2">Software optimization research and
+                                    analytical frameworks for system scalability.</p>
+                                <div class="mt-3 flex gap-2">
+                                    <span
+                                        class="px-2 py-0.5 bg-cosmic-cyan/5 text-cosmic-cyan/70 rounded text-[10px]">Optimization</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-cosmic-cyan/5 text-cosmic-cyan/70 rounded text-[10px]">Analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Summary -->
+                    <div class="grid grid-cols-3 gap-3 mt-6">
+                        <div class="text-center p-4 cosmic-card rounded-xl border border-space-100/5">
+                            <div class="text-2xl font-bold text-cosmic-gold font-display">4</div>
+                            <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Global Programs</div>
+                        </div>
+                        <div class="text-center p-4 cosmic-card rounded-xl border border-space-100/5">
+                            <div class="text-2xl font-bold text-cosmic-cyan font-display">1%</div>
+                            <div class="text-[10px] text-space-100/40 uppercase tracking-wider">NASA Rank</div>
+                        </div>
+                        <div class="text-center p-4 cosmic-card rounded-xl border border-space-100/5">
+                            <div class="text-2xl font-bold text-purple-400 font-display">3</div>
+                            <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Institutions</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section - Fixed Version -->
+    <section id="education"
+        class="py-20 md:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-y border-space-100/10">
+        <!-- Background elements -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 opacity-5"
+                style="background-image: radial-gradient(circle at 1px 1px, rgba(0,212,255,0.3) 1px, transparent 0); background-size: 40px 40px;">
+            </div>
+            <div class="absolute top-10 left-10 w-64 h-64 bg-cosmic-cyan/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+                style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16 md:mb-20">
+                <span
+                    class="inline-flex items-center gap-2 text-cosmic-cyan font-mono text-xs tracking-[0.2em] uppercase mb-4 border border-cosmic-cyan/20 px-4 py-1.5 rounded-full">
+                    <span class="w-1.5 h-1.5 bg-cosmic-cyan rounded-full animate-pulse"></span>
+                    Academic Foundation
+                </span>
+                <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-space-100">
+                    Education & <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-cosmic-cyan to-purple-400">Learning</span>
+                </h2>
+            </div>
+
+            <!-- Main Education Card -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div id="edu-card"
+                    class="relative cosmic-card rounded-3xl overflow-hidden border border-cosmic-cyan/20 transition-all duration-500 hover:border-cosmic-cyan/40">
+                    <!-- Background -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-cosmic-cyan/10 via-transparent to-purple-500/10 opacity-50">
+                    </div>
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-cosmic-cyan/20 rounded-full blur-3xl -mr-32 -mt-32">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl -ml-24 -mb-24">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="relative p-8 md:p-12">
+                        <!-- University Header -->
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
+                            <div class="relative">
+                                <div
+                                    class="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-cosmic-cyan/20 to-purple-500/20 flex items-center justify-center border border-cosmic-cyan/30">
+                                    <svg class="w-10 h-10 md:w-12 md:h-12 text-cosmic-cyan" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M12 14l9-5-9-5-9 5 9 5z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                    </svg>
+                                </div>
+                                <div
+                                    class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-cosmic-cyan/20 flex items-center justify-center border border-cosmic-cyan/30">
+                                    <span class="text-cosmic-cyan text-xs font-bold">4yr</span>
+                                </div>
+                            </div>
+
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-3 mb-2">
+                                    <h3 class="font-display text-2xl md:text-3xl font-bold text-space-100">Tanta
+                                        University
+                                    </h3>
+                                    <span
+                                        class="px-3 py-1 bg-cosmic-cyan/10 text-cosmic-cyan rounded-full text-xs font-mono border border-cosmic-cyan/20">In
+                                        Progress</span>
+                                </div>
+                                <p class="text-space-100/70 text-lg mb-1">Bachelor of Science in Computer Science</p>
+                                <p class="text-space-100/50 text-sm font-mono flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    September 2024 – September 2028 (Expected)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Focus Areas -->
+                        <div class="mb-6">
+                            <p class="text-xs text-space-100/40 uppercase tracking-wider mb-4 font-mono">Core Curriculum
+                            </p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div
+                                    class="group relative cosmic-card rounded-xl p-4 border border-space-100/10 hover:border-cosmic-cyan/30 transition-all duration-300 hover:-translate-y-1">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-cosmic-cyan/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5 text-cosmic-cyan" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-display font-bold text-space-100 text-sm">Algorithms</h4>
+                                    <p class="text-[10px] text-space-100/50">Advanced problem solving</p>
+                                </div>
+
+                                <div
+                                    class="group relative cosmic-card rounded-xl p-4 border border-space-100/10 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-display font-bold text-space-100 text-sm">Data Structures</h4>
+                                    <p class="text-[10px] text-space-100/50">C++ implementation</p>
+                                </div>
+
+                                <div
+                                    class="group relative cosmic-card rounded-xl p-4 border border-space-100/10 hover:border-emerald-500/30 transition-all duration-300 hover:-translate-y-1">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-display font-bold text-space-100 text-sm">Software Eng.</h4>
+                                    <p class="text-[10px] text-space-100/50">System design</p>
+                                </div>
+
+                                <div
+                                    class="group relative cosmic-card rounded-xl p-4 border border-space-100/10 hover:border-amber-500/30 transition-all duration-300 hover:-translate-y-1">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-display font-bold text-space-100 text-sm">Database Sys.</h4>
+                                    <p class="text-[10px] text-space-100/50">Design & optimization</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Click to expand button -->
+                        <button id="expand-btn"
+                            class="w-full flex items-center justify-center gap-2 text-cosmic-cyan/60 text-xs hover:text-cosmic-cyan transition-colors group py-2">
+                            <svg id="expand-icon" class="w-4 h-4 transition-transform duration-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                            <span id="expand-text">Click to see academic progress</span>
+                        </button>
+
+                        <!-- Academic Timeline - Updated for Year 2 -->
+                        <div id="timeline-content" class="hidden mt-6 pt-6 border-t border-cosmic-cyan/20">
+                            <h4 class="font-display text-lg font-bold text-cosmic-cyan mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Academic Journey
+                            </h4>
+
+                            <div class="space-y-4">
+                                <!-- Year 1 - Completed -->
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-3 h-3 rounded-full bg-cosmic-cyan/50"></div>
+                                        <div class="w-px h-full bg-gradient-to-b from-cosmic-cyan/50 to-cosmic-cyan/30">
+                                        </div>
+                                    </div>
+                                    <div class="pb-4 flex-1">
+                                        <p class="text-cosmic-cyan/70 text-sm font-bold mb-1">Year 1</p>
+                                        <p class="text-space-100/60 text-sm">Foundation courses in programming,
+                                            mathematics, and computer
+                                            science basics</p>
+                                        <p class="text-space-100/40 text-xs mt-1">2024 - 2025 • Completed</p>
+                                    </div>
+                                </div>
+
+                                <!-- Year 2 - Current -->
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="w-3 h-3 rounded-full bg-cosmic-cyan shadow-[0_0_10px_rgba(0,212,255,0.5)] animate-pulse">
+                                        </div>
+                                        <div class="w-px h-full bg-gradient-to-b from-cosmic-cyan to-cosmic-cyan/30">
+                                        </div>
+                                    </div>
+                                    <div class="pb-4 flex-1">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <p class="text-cosmic-cyan text-sm font-bold">Year 2</p>
+                                            <span
+                                                class="px-2 py-0.5 bg-cosmic-cyan/10 text-cosmic-cyan rounded text-[10px] border border-cosmic-cyan/20">Current</span>
+                                        </div>
+                                        <p class="text-space-100/80 text-sm">Data structures, algorithms, and software
+                                            engineering principles
+                                        </p>
+                                        <p class="text-space-100/50 text-xs mt-1">2025 - 2026 • In Progress</p>
+                                    </div>
+                                </div>
+
+                                <!-- Year 3 - Upcoming -->
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-3 h-3 rounded-full bg-space-100/30"></div>
+                                        <div class="w-px h-full bg-gradient-to-b from-space-100/30 to-space-100/10">
+                                        </div>
+                                    </div>
+                                    <div class="pb-4 flex-1">
+                                        <p class="text-space-100/50 text-sm font-bold mb-1">Year 3</p>
+                                        <p class="text-space-100/40 text-sm">Advanced systems, databases, and
+                                            specialization courses</p>
+                                        <p class="text-space-100/30 text-xs mt-1">2026 - 2027 • Upcoming</p>
+                                    </div>
+                                </div>
+
+                                <!-- Year 4 - Upcoming -->
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-3 h-3 rounded-full bg-space-100/20"></div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-space-100/40 text-sm font-bold mb-1">Year 4</p>
+                                        <p class="text-space-100/30 text-sm">Capstone project and graduation</p>
+                                        <p class="text-space-100/20 text-xs mt-1">2027 - 2028 • Upcoming</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certifications -->
+                        <div class="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                            <div
+                                class="group cosmic-card rounded-2xl p-5 border border-cosmic-gold/10 hover:border-cosmic-gold/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-cosmic-gold/10 flex items-center justify-center border border-cosmic-gold/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <svg class="w-6 h-6 text-cosmic-gold" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-cosmic-gold text-xs font-mono mb-1">Microsoft</p>
+                                        <h4 class="font-display font-bold text-space-100 text-sm mb-1">System Analysis
+                                            with AI</h4>
+                                        <p class="text-space-100/50 text-xs">Generative AI Tools</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="group cosmic-card rounded-2xl p-5 border border-purple-500/10 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-purple-400 text-xs font-mono mb-1">NTI Egypt</p>
+                                        <h4 class="font-display font-bold text-space-100 text-sm mb-1">Full-Stack
+                                            Development</h4>
+                                        <p class="text-space-100/50 text-xs">Laravel & Web Tech</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="group cosmic-card rounded-2xl p-5 border border-cosmic-cyan/10 hover:border-cosmic-cyan/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <div class="flex items-start gap-3">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-cosmic-cyan/10 flex items-center justify-center border border-cosmic-cyan/20 flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <svg class="w-6 h-6 text-cosmic-cyan" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-cosmic-cyan text-xs font-mono mb-1">Global</p>
+                                        <h4 class="font-display font-bold text-space-100 text-sm mb-1">Leadership
+                                            Excellence</h4>
+                                        <p class="text-space-100/50 text-xs">Aspire & McKinsey</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex flex-wrap justify-center gap-8 mt-12 max-w-2xl mx-auto">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cosmic-cyan font-display mb-1">4.0</div>
+                                <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Target GPA</div>
+                            </div>
+                            <div class="w-px h-12 bg-space-100/10 hidden sm:block"></div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cosmic-cyan font-display mb-1">4</div>
+                                <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Years</div>
+                            </div>
+                            <div class="w-px h-12 bg-space-100/10 hidden sm:block"></div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cosmic-cyan font-display mb-1">12+</div>
+                                <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Courses</div>
+                            </div>
+                            <div class="w-px h-12 bg-space-100/10 hidden sm:block"></div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cosmic-cyan font-display mb-1">3</div>
+                                <div class="text-[10px] text-space-100/40 uppercase tracking-wider">Certs</div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+
+
+    <section id="projects" class="nebula-section relative py-20 md:py-32 overflow-hidden">
+        <!-- ═══ Ambient Background Layers ═══ -->
+        <div class="nebula-ambient absolute inset-0 pointer-events-none">
+            <div
+                class="nebula-glow nebula-glow-cyan absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-20">
+            </div>
+            <div
+                class="nebula-glow nebula-glow-purple absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-15">
+            </div>
+        </div>
+
+        <!-- ═══ Floating Stardust Particles ═══ -->
+        <div class="stardust-container absolute inset-0 pointer-events-none overflow-hidden" id="stardust"></div>
+
+        <!-- ═══ Section Header ═══ -->
+        <div class="nebula-header relative z-10 text-center mb-12 md:mb-20 px-4">
+            <span
+                class="nebula-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-[0.2em] mb-4">
+                <span class="w-1.5 h-1.5 rounded-full animate-pulse"></span>
+                Visual Journey
+            </span>
+            <h2 class="nebula-title font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+                <span class="text-space-100">Nebula</span>
+                <span class="nebula-gradient-text">Carousel</span>
+            </h2>
+            <p class="nebula-subtitle text-space-100/50 text-sm max-w-md mx-auto">
+                Drag to explore • Hover to pause • Click to focus
+            </p>
+        </div>
+
+        <!-- ═══ 3D Orbit Gallery ═══ -->
+        <div
+            class="nebula-stage relative z-10 h-[400px] md:h-[500px] flex items-center justify-center perspective-[1000px]">
+
+            <!-- Orbit Container -->
+            <div class="orbit-ring relative w-[200px] h-[300px] md:w-[240px] md:h-[360px]" id="orbitRing">
+
+                <!-- Orbit Item 1 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 0; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-1.jpg" alt="3D Portfolio Project"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&h=600&fit=crop'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-cosmic-cyan font-bold text-sm">3D Portfolio</h4>
+                                <p class="text-space-100/70 text-xs">Next.js • Three.js</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 2 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 1; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-2.jpg" alt="DARION Design"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=600&fit=crop'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-purple-400 font-bold text-sm">DARION Design</h4>
+                                <p class="text-space-100/70 text-xs">HTML • CSS • JS</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 3 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 2; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-3.jpg" alt="NASA Space Apps"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=600&fit=crop'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-cosmic-gold font-bold text-sm">NASA Space Apps</h4>
+                                <p class="text-space-100/70 text-xs">AI • Sustainability</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 4 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 3; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-4.jpg" alt="Codveda Internship"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=400&h=600&fit=crop'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-emerald-400 font-bold text-sm">Codveda Work</h4>
+                                <p class="text-space-100/70 text-xs">Vue.js • Node.js</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 5 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 4; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-5.jpg" alt="NTI Training"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='asseta'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-purple-400 font-bold text-sm">NTI Full-Stack</h4>
+                                <p class="text-space-100/70 text-xs">Laravel • PHP</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 6 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 5; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-6.jpg" alt="Microsoft AI"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='#'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-cosmic-gold font-bold text-sm">Microsoft AI</h4>
+                                <p class="text-space-100/70 text-xs">Azure • Gen AI</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 7 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 6; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-7.jpg" alt="Aspire Leaders"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='#'">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-pink-400 font-bold text-sm">Aspire Leaders</h4>
+                                <p class="text-space-100/70 text-xs">Harvard • Leadership</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit Item 8 -->
+                <div class="orbit-item absolute inset-0" style="--orbit-index: 7; --orbit-total: 8;">
+                    <div class="orbit-card relative w-full h-full rounded-xl overflow-hidden cursor-pointer group">
+                        <img src="assets/gallery/project-8.jpg" alt="URI Research"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onerror="this.src='#">
+                        <div
+                            class="orbit-overlay absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div>
+                                <h4 class="text-emerald-400 font-bold text-sm">URI Research</h4>
+                                <p class="text-space-100/70 text-xs">Optimization • Analysis</p>
+                            </div>
+                        </div>
+                        <div
+                            class="orbit-glow absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Ground Reflection Plane -->
+            <div
+                class="reflection-plane absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] pointer-events-none">
+            </div>
+        </div>
+
+        <!-- ═══ Navigation Dots ═══ -->
+        <div class="nebula-nav relative z-10 flex justify-center gap-3 mt-8" id="orbitNav">
+            <!-- Generated by JS -->
+        </div>
+
+        <!-- ═══ Drag Hint ═══ -->
+        <div
+            class="drag-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-space-100/30 text-xs animate-pulse">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            <span>Drag to rotate</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contact Section - Creative Developer Portfolio -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+
+            <!-- Section Header with Glitch Effect -->
+            <div class="section-header">
+                <h2 class="glitch-text" data-text="Let's_Create">Let's_Create</h2>
+                <p class="subtitle">Have a project in mind? Let's build something extraordinary together.</p>
+            </div>
+
+            <!-- Main Contact Grid -->
+            <div class="contact-grid">
+
+                <!-- Left: Interactive Contact Form -->
+                <div class="form-wrapper">
+                    <form class="creative-form" id="contactForm">
+
+                        <!-- Floating Input Group -->
+                        <div class="input-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name">
+                                <span class="label-text">Your Name</span>
+                            </label>
+                            <div class="input-line"></div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">
+                                <span class="label-text">Email Address</span>
+                            </label>
+                            <div class="input-line"></div>
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <!-- Subject as Creative Tags -->
+                        <div class="subject-selector">
+                            <p class="selector-label">What's this about?</p>
+                            <div class="tag-container">
+                                <button type="button" class="subject-tag" data-value="project">
+                                    <span class="tag-text">Project</span>
+                                </button>
+                                <button type="button" class="subject-tag" data-value="collab">
+                                    <span class="tag-text">Collaboration</span>
+                                </button>
+                                <button type="button" class="subject-tag" data-value="mentorship">
+                                    <span class="tag-text">Mentorship</span>
+                                </button>
+                                <button type="button" class="subject-tag" data-value="other">
+                                    <span class="tag-text">Just Chat</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="subject" name="subject" required>
+                        </div>
+
+                        <!-- Message Area with Dynamic Height -->
+                        <div class="input-group textarea-group">
+                            <textarea id="message" required placeholder=" " rows="1"></textarea>
+                            <label for="message">
+                                <span class="label-text">Tell me about your idea...</span>
+
+                            </label>
+                            <div class="input-line"></div>
+                            <div class="input-glow"></div>
+                            <div class="char-counter"><span id="charCount">0</span>/500</div>
+                        </div>
+
+                        <!-- Submit Button with Particle Effect -->
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </span>
+                            <div class="btn-particles"></div>
+                        </button>
+
+                    </form>
+
+                    <!-- Success State Overlay -->
+                    <div class="success-overlay" id="successOverlay">
+                        <div class="success-content">
+                            <div class="success-icon">🎉</div>
+                            <h3>Message Sent!</h3>
+                            <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
+                            <button class="reset-btn" onclick="resetForm()">Send Another</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Creative Contact Cards -->
+                <div class="contact-cards">
+
+                    <!-- Email Card with 3D Tilt -->
+                    <a href="mailto:mohamedelfarsisi@gmail.com" class="contact-card tilt-card" data-tilt>
+                        <div class="card-inner">
+                            <div class="card-icon">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h4>Email Me</h4>
+                                <p>mohamedelfarsisi@outlook.com</p>
+                                <span class="card-arrow">→</span>
+                            </div>
+                        </div>
+                        <div class="card-shine"></div>
+                    </a>
+
+                    <!-- LinkedIn Card -->
+                    <a href="https://www.linkedin.com/in/mohamed-elfarsisi/" target="_blank"
+                        class="contact-card tilt-card" data-tilt>
+                        <div class="card-inner">
+                            <div class="card-icon linkedin">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h4>LinkedIn</h4>
+                                <p>Let's connect professionally</p>
+                                <span class="card-arrow">→</span>
+                            </div>
+                        </div>
+                        <div class="card-shine"></div>
+                    </a>
+
+                    <!-- GitHub Card -->
+                    <a href="https://github.com/mohamed-elfrsisi" target="_blank" class="contact-card tilt-card"
+                        data-tilt>
+                        <div class="card-inner">
+                            <div class="card-icon github">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </div>
+                            <div class="card-content">
+                                <h4>GitHub</h4>
+                                <p>Check my code</p>
+                                <span class="card-arrow">→</span>
+                            </div>
+                        </div>
+                        <div class="card-shine"></div>
+                    </a>
+
+                    <!-- Availability Status -->
+                    <a href="https://www.upwork.com/freelancers/~011bbabc297d06f10f" target="_blank">
+                        <div class="availability-card">
+                            <div class="status-indicator">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Available for freelance</span>
+                            </div>
+                            <p class="availability-note">Currently open for new projects and collaborations</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Decorative Background Elements -->
+            <div class="bg-grid"></div>
+            <div class="bg-glow"></div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="simple-footer">
+        <div class="simple-footer-content">
+            <p>© 2026 Created by Mohamed Elfarsisi. </p>
+        </div>
+    </footer>
+
+    <style>
+
+    </style>
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
